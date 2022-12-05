@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import HelloWorld from "./components/HelloWorld.vue";
-import TheWelcome from "./components/TheWelcome.vue";
-import TodosVue from "./components/Todos.vue";
+import TodosComponent from "./components/TodosComponent.vue";
 </script>
 
 <template>
@@ -20,7 +18,7 @@ import TodosVue from "./components/Todos.vue";
   </header> -->
 
   <main>
-    <TodosVue />
+    <TodosComponent />
   </main>
 </template>
 
