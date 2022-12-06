@@ -2,6 +2,9 @@
 import { ref, watchEffect, type Ref } from "vue";
 import { computed } from "vue";
 
+console.log(import.meta.env.VITE_APP_ID);
+console.log(import.meta.env.VITE_APP_NAME);
+
 const visibility = ref<FiltersKey>("all");
 const editedTodo = ref<Todo>();
 
