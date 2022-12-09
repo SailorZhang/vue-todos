@@ -2,9 +2,6 @@
 import { ref, watchEffect, type Ref } from "vue";
 import { computed } from "vue";
 
-console.log(import.meta.env.VITE_APP_ID);
-console.log(import.meta.env.VITE_APP_NAME);
-
 const visibility = ref<FiltersKey>("all");
 const editedTodo = ref<Todo>();
 
@@ -118,7 +115,7 @@ function toggle(event: Event) {
           class="todo"
           :class="{ completed: todo.completed, editing: todo === editedTodo }"
           v-for="todo of filteredTodos"
-          v-bind:key="todo.name"
+          :key="todo.id"
         >
           <div class="view">
             <input class="toggle" type="checkbox" v-model="todo.completed" />
@@ -126,19 +123,19 @@ function toggle(event: Event) {
             <button class="destroy" @click="deleteTodo(todo)"></button>
           </div>
           <input
+            v-if="editedTodo === todo"
             class="edit"
             type="text"
             v-model="todo.name"
-            v-if="editedTodo === todo"
-            @keyup.esc="cancelEdit(todo)"
-            @keyup.enter="doneEdit(todo)"
-            @blur="doneEdit(todo)"
             @vnode-mounted="mounted"
+            v-on:blur="doneEdit(todo)"
+            @keyup.escape="cancelEdit(todo)"
+            @keyup.enter="doneEdit(todo)"
           />
         </li>
       </ul>
     </section>
-    <footer class="footer">
+    <footer class="footer" v-show="todos.length">
       <span class="todo-count">
         <strong></strong>
         <span>{{ remaining + (remaining > 1 ? " items" : " item") }} left</span>
