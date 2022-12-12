@@ -42,9 +42,7 @@ const filteredTodos = computed<Todo[]>(() =>
   filter[visibility.value](todos.value)
 );
 
-const remaining = computed(() => {
-  return filter.active(todos.value).length;
-});
+const remaining = computed<number>(() => filter.active(todos.value).length);
 
 watchEffect(() => {
   sessionStorage.setItem("todos", JSON.stringify(todos.value));
@@ -84,8 +82,9 @@ function mounted({ el }: { el: HTMLInputElement }) {
 }
 
 function toggle(event: Event) {
+  const checked = (event.target as HTMLInputElement).checked;
   todos.value.forEach((todo) => {
-    todo.completed = (event.target as HTMLInputElement).checked;
+    todo.completed = checked;
   });
 }
 </script>
